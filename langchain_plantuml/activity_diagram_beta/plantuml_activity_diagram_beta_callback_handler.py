@@ -43,8 +43,9 @@ class PlantUMLActivityDiagramCallbackHandler(BasePlantUMLCallbackHandler):
             self, serialized: Dict[str, Any], prompts: List[str], **kwargs: Any
     ) -> None:
         run_metric = self._get_run_object(serialized=serialized, **kwargs)
-        activity_name = self._wrapper_activity_name(self.on_llm_start.__name__,
-                                                    f'{run_metric["name"]}({kwargs["invocation_params"]["model_name"]})')
+        activity_name = self \
+            ._wrapper_activity_name(self.on_llm_start.__name__,
+                                    f'{run_metric["name"]}({kwargs["invocation_params"]["model_name"]})')
         self._append_uml_activity(activity_name)
         self._append_uml_notes(align='left', notes=self._wrapper_note(prompts[0]))
 
@@ -54,12 +55,13 @@ class PlantUMLActivityDiagramCallbackHandler(BasePlantUMLCallbackHandler):
         self.prompt_tokens += response.llm_output["token_usage"].prompt_tokens
         self.completion_tokens += response.llm_output["token_usage"].completion_tokens
         self.total_tokens += response.llm_output["token_usage"].total_tokens
-        activity_name = self._wrapper_activity_name(self.on_llm_end.__name__,
-                                                    f'{run_metric["name"]}\n'
-                                                    f'\n* time {time_cost:.2f}s '
-                                                    f'\n* prompt_tokens {response.llm_output["token_usage"].prompt_tokens} '
-                                                    f'\n* completion_tokens {response.llm_output["token_usage"].completion_tokens} '
-                                                    f'\n* total_tokens {response.llm_output["token_usage"].total_tokens};')
+        activity_name = self \
+            ._wrapper_activity_name(self.on_llm_end.__name__,
+                                    f'{run_metric["name"]}\n'
+                                    f'\n* time {time_cost:.2f}s '
+                                    f'\n* prompt_tokens {response.llm_output["token_usage"].prompt_tokens} '
+                                    f'\n* completion_tokens {response.llm_output["token_usage"].completion_tokens} '
+                                    f'\n* total_tokens {response.llm_output["token_usage"].total_tokens};')
         self._append_uml_activity(activity_name)
         for chats in response.generations:
             for chat in chats:
