@@ -2,6 +2,8 @@
 
 Subscribe to events using a callback and store them in PlantUML format. You can easily subscribe to events and keep them in a form that is easy to visualize and analyze.
 
+![](screenshot/scene_agent.png)
+
 ## Quick Start
 
 Install this library:
@@ -18,10 +20,6 @@ Then:
 4. Call the export_uml_content method of activity_diagram_callback to export the PlantUML content
 5. Save PlantUML content to a file
 6. Exporting PlantUML to PNG
-
-For an example, see below instructions on reproducing the screenshot.
-
-![](screenshot/scene_agent.png)
 
 Running the minimal example.
 
