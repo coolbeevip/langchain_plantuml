@@ -19,7 +19,8 @@ build-backend = "flit_core.buildapi"
 [project]
 name = "langchain-plantuml"
 version = "0.0.1"
-description = "Generate PlantUML execution activity diagrams based on LangChain CallBacks"
+description = "Subscribe to events using a callback and store them in PlantUML format. You can easily subscribe to events and keep them in a form that is easy to visualize and analyze."
+readme = "README.md"
 requires-python = ">=3.8"
 dependencies = [
     "langchain==0.0.228"

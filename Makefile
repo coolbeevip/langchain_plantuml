@@ -7,3 +7,7 @@ lint:
 
 fmt:
 	@isort ./langchain_plantuml
+
+release:
+	python -m build
+	twine check dist/*
