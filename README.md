@@ -17,6 +17,10 @@ Then:
 5. Save PlantUML content to a file
 6. Exporting PlantUML to PNG
 
+For an example, see below instructions on reproducing the screenshot.
+
+![](screenshot/scene_agent.png)
+
 ## Exporting PlantUML to PNG
 
 You can download [plantuml.1.2023.10.jar](https://github.com/plantuml/plantuml/releases/download/v1.2023.10/plantuml-1.2023.10.jar)
@@ -24,3 +28,4 @@ You can download [plantuml.1.2023.10.jar](https://github.com/plantuml/plantuml/r
 ```shell
 java -DPLANTUML_LIMIT_SIZE=81920 -jar plantuml-1.2023.10.jar scene_agent.puml
 ```
+
