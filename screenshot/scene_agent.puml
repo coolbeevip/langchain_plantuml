@@ -1,0 +1,166 @@
+@startuml
+skinparam dpi 300
+skinparam wrapWidth 500
+skinparam shadowing false
+skinparam noteFontName Arial
+skinparam noteFontSize 10
+skinparam noteBackgroundColor #ECECEC
+skinparam noteBorderColor #C0C0C0
+skinparam noteFontColor #333333
+skinparam noteBorderThickness 0
+skinparam noteShadowing false
+skinparam noteArrow none
+skinparam activityFontName Arial
+skinparam activityFontSize 10
+skinparam activityBorderThickness 1
+skinparam activityShadowing true
+skinparam ArrowHeadColor none
+start
+:0. <:1f3af:> AgentExecutor;
+note left
+{'input': 'What did biden say about ketanji brown jackson in the state of the union address?'}⏎
+end note
+:1. <:1f3af:> LLMChain;
+note left
+{'input': 'What did biden say about ketanji brown jackson in the state of the union address?', 'agent_scratchpad': '', 'stop': ['\nObservation:', '\n\tObservation:']}⏎
+end note
+:2. <:1f916:> ChatOpenAI(gpt-3.5-turbo-0613);
+note left
+Human: Answer the following questions as best you can. You have access to the following tools:⏎
+⏎
+State of Union QA System: useful for when you need to answer questions about the most recent state of the union address. Input should be a fully formed question.⏎
+Ruff QA System: useful for when you need to answer questions about ruff (a python linter). Input should be a fully formed question.⏎
+⏎
+Use the following format:⏎
+⏎
+Question: the input question you must answer⏎
+Thought: you should always think about what to do⏎
+Action: the action to take, should be one of [State of Union QA System, Ruff QA System]⏎
+Action Input: the input to the action⏎
+Observation: the result of the action⏎
+... (this Thought/Action/Action Input/Observation can repeat N times)⏎
+Thought: I now know the final answer⏎
+Final Answer: the final answer to the original input question⏎
+⏎
+Begin!⏎
+⏎
+Question: What did biden say about ketanji brown jackson in the state of the union address?⏎
+Thought:⏎
+end note
+:3. <:1f916:> ChatOpenAI
+
+* time 1.68s 
+* prompt_tokens 216 
+* completion_tokens 47 
+* total_tokens 263;;
+note right
+I should use the State of Union QA System to find the answer to this question.⏎
+Action: State of Union QA System⏎
+Action Input: "What did Biden say about Ketanji Brown Jackson in the state of the union address?"⏎
+end note
+:4. <:1f3af:> LLMChain;
+note right
+{'text': 'I should use the State of Union QA System to find the answer to this question.\nAction: State of Union QA System\nAction Input: "What did Biden say about Ketanji Brown Jackson in the state of the union address?"'}⏎
+end note
+:5. <:1f528:> State of Union QA System;
+note left
+What did Biden say about Ketanji Brown Jackson in the state of the union address?⏎
+end note
+:6. <:1f3af:> RetrievalQA;
+note left
+{'query': 'What did Biden say about Ketanji Brown Jackson in the state of the union address?'}⏎
+end note
+:7. <:1f3af:> StuffDocumentsChain;
+note left
+{'input_documents': [Document(page_content='Madame Speaker, Vice President Biden, members of Congress, distinguished guests, and fellow Americans:\n\nOur Constitution declares that from time to time, the president shall give to Congress information about the state of our union. For 220 years, our leaders have fulfilled this duty. They have done so during periods of prosperity and tranquility. And they have done so in the midst of war and depression; at moments of great strife and great struggle.', metadata={'source': '/Users/zhanglei/Work/github/langchain_plantuml/tests/activity_diagram_beta/data/state_of_the_union.txt'}), Document(page_content="It is because of this spirit, this great decency and great strength that I have never been more hopeful about America's future than I am tonight. Despite our hardships, our union is strong. We do not give up. We do not quit. We do not allow fear or division to break our spirit. In this new decade, it's time the American people get a government  ... (Omit 2763 words)⏎
+end note
+:8. <:1f3af:> LLMChain;
+note left
+{'question': 'What did Biden say about Ketanji Brown Jackson in the state of the union address?', 'context': 'Madame Speaker, Vice President Biden, members of Congress, distinguished guests, and fellow Americans:\n\nOur Constitution declares that from time to time, the president shall give to Congress information about the state of our union. For 220 years, our leaders have fulfilled this duty. They have done so during periods of prosperity and tranquility. And they have done so in the midst of war and depression; at moments of great strife and great struggle.\n\nIt is because of this spirit, this great decency and great strength that I have never been more hopeful about America\'s future than I am tonight. Despite our hardships, our union is strong. We do not give up. We do not quit. We do not allow fear or division to break our spirit. In this new decade, it\'s time the American people get a government that matches their decency, that embodies their strength.\n\nAnd tonight, I\'d lik ... (Omit 2163 words)⏎
+end note
+:9. <:1f916:> ChatOpenAI(gpt-3.5-turbo-0613);
+note left
+System: Use the following pieces of context to answer the users question. ⏎
+If you don't know the answer, just say that you don't know, don't try to make up an answer.⏎
+----------------⏎
+Madame Speaker, Vice President Biden, members of Congress, distinguished guests, and fellow Americans:⏎
+⏎
+Our Constitution declares that from time to time, the president shall give to Congress information about the state of our union. For 220 years, our leaders have fulfilled this duty. They have done so during periods of prosperity and tranquility. And they have done so in the midst of war and depression; at moments of great strife and great struggle.⏎
+⏎
+It is because of this spirit, this great decency and great strength that I have never been more hopeful about America's future than I am tonight. Despite our hardships, our union is strong. We do not give up. We do not quit. We do not allow fear or division to break our spirit. In this new decade, it's time the American people get a government that matches t ... (Omit 2295 words)⏎
+end note
+:10. <:1f916:> ChatOpenAI
+
+* time 1.71s 
+* prompt_tokens 702 
+* completion_tokens 40 
+* total_tokens 742;;
+note right
+There is no mention of Ketanji Brown Jackson in the provided context of the State of the Union address. Therefore, Vice President Biden did not specifically mention Ketanji Brown Jackson in his speech.⏎
+end note
+:11. <:1f3af:> LLMChain;
+note right
+{'text': 'There is no mention of Ketanji Brown Jackson in the provided context of the State of the Union address. Therefore, Vice President Biden did not specifically mention Ketanji Brown Jackson in his speech.'}⏎
+end note
+:12. <:1f3af:> StuffDocumentsChain;
+note right
+{'output_text': 'There is no mention of Ketanji Brown Jackson in the provided context of the State of the Union address. Therefore, Vice President Biden did not specifically mention Ketanji Brown Jackson in his speech.'}⏎
+end note
+:13. <:1f3af:> RetrievalQA;
+note right
+{'result': 'There is no mention of Ketanji Brown Jackson in the provided context of the State of the Union address. Therefore, Vice President Biden did not specifically mention Ketanji Brown Jackson in his speech.'}⏎
+end note
+:14. <:1f528:> State of Union QA System;
+:15. <:1f3af:> LLMChain;
+note left
+{'input': 'What did biden say about ketanji brown jackson in the state of the union address?', 'agent_scratchpad': 'I should use the State of Union QA System to find the answer to this question.\nAction: State of Union QA System\nAction Input: "What did Biden say about Ketanji Brown Jackson in the state of the union address?"\nObservation: There is no mention of Ketanji Brown Jackson in the provided context of the State of the Union address. Therefore, Vice President Biden did not specifically mention Ketanji Brown Jackson in his speech.\nThought:', 'stop': ['\nObservation:', '\n\tObservation:']}⏎
+end note
+:16. <:1f916:> ChatOpenAI(gpt-3.5-turbo-0613);
+note left
+Human: Answer the following questions as best you can. You have access to the following tools:⏎
+⏎
+State of Union QA System: useful for when you need to answer questions about the most recent state of the union address. Input should be a fully formed question.⏎
+Ruff QA System: useful for when you need to answer questions about ruff (a python linter). Input should be a fully formed question.⏎
+⏎
+Use the following format:⏎
+⏎
+Question: the input question you must answer⏎
+Thought: you should always think about what to do⏎
+Action: the action to take, should be one of [State of Union QA System, Ruff QA System]⏎
+Action Input: the input to the action⏎
+Observation: the result of the action⏎
+... (this Thought/Action/Action Input/Observation can repeat N times)⏎
+Thought: I now know the final answer⏎
+Final Answer: the final answer to the original input question⏎
+⏎
+Begin!⏎
+⏎
+Question: What did biden say about ketanji brown jackson in the state of the union address?⏎
+Thought:I should use the State of Union QA System to  ... (Omit 388 words)⏎
+end note
+:17. <:1f916:> ChatOpenAI
+
+* time 1.22s 
+* prompt_tokens 307 
+* completion_tokens 29 
+* total_tokens 336;;
+note right
+I now know the final answer⏎
+Final Answer: Vice President Biden did not mention Ketanji Brown Jackson in the state of the union address.⏎
+end note
+:18. <:1f3af:> LLMChain;
+note right
+{'text': 'I now know the final answer\nFinal Answer: Vice President Biden did not mention Ketanji Brown Jackson in the state of the union address.'}⏎
+end note
+:19.  AgentExecutor;
+:20. <:1f3af:> AgentExecutor;
+note right
+{'output': 'Vice President Biden did not mention Ketanji Brown Jackson in the state of the union address.'}⏎
+end note
+stop
+note right
+* prompt_tokens: 1225 
+* completion_tokens: 116 
+* total_tokens: 1341
+end note
+@enduml
