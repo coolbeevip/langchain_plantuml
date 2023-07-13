@@ -1,5 +1,7 @@
 # LangChain PlantUML Callback Handler
 
+[![PyPi version](https://img.shields.io/pypi/v/langchain-plantuml.svg)](https://pypi.org/project/langchain-plantuml/)
+
 Subscribe to events using a callback and store them in PlantUML format. You can easily subscribe to events and keep them in a form that is easy to visualize and analyze.
 
 ![](screenshot/scene_agent.png)
