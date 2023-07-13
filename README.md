@@ -54,7 +54,7 @@ llm_chain.predict(human_input="Hi there my friend")
 llm_chain.predict(human_input="Not too bad - how are you?")
 
 plantuml_content = callback_handler.export_uml_content()
-with open("example-activity-diagram.puml", "w") as f:
+with open("example.puml", "w") as f:
     for line in plantuml_content:
         f.write(str(line) + "\n")
 ```
@@ -68,6 +68,6 @@ You will get the following PlantUML activity diagram
 You can download [plantuml.1.2023.10.jar](https://github.com/plantuml/plantuml/releases/download/v1.2023.10/plantuml-1.2023.10.jar)
 
 ```shell
-java -DPLANTUML_LIMIT_SIZE=81920 -jar plantuml-1.2023.10.jar scene_agent.puml
+java -DPLANTUML_LIMIT_SIZE=81920 -jar plantuml-1.2023.10.jar example.puml
 ```
 
