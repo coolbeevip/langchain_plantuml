@@ -56,6 +56,7 @@ per-file-ignores = [
 ]
 count = true
 
-urls.Homepage = "https://pypi.org/project/langchain-plantuml"
-urls.Source = "https://github.com/coolbeevip/langchain_plantuml"
-urls.Tracker = "https://github.com/coolbeevip/langchain_plantuml/issues"
+[project.urls]
+Documentation = "https://pypi.org/project/langchain-plantuml"
+Source = "https://github.com/coolbeevip/langchain_plantuml"
+Tracker = "https://github.com/coolbeevip/langchain_plantuml/issues"
