@@ -21,7 +21,7 @@ name = "langchain-plantuml"
 version = "0.0.2"
 description = "Subscribe to events using a callback and store them in PlantUML format. You can easily subscribe to events and keep them in a form that is easy to visualize and analyze."
 authors = [{ name = "Lei Zhang", email = "zhanglei@apache.org" }]
-license = "Apache License 2.0"
+license = {file = "LICENSE"}
 readme = "README.md"
 requires-python = ">=3.8"
 dependencies = [
