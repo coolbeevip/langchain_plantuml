@@ -21,7 +21,7 @@ llm_chain = LLMChain(
     prompt=prompt,
     verbose=True,
     memory=memory,
-    callbacks=[callback_handler]
+    callbacks=[callback_handler],
 )
 
 llm_chain.predict(human_input="Hi there my friend")

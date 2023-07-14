@@ -32,7 +32,7 @@ class BasePlantUMLCallbackHandler(BaseCallbackHandler):
         "on_chain_end": "<:1f3af:>",
         "on_tool_start": "<:1f528:>",
         "on_tool_end": "<:1f528:>",
-        "on_text": "<:1f4c6:>"
+        "on_text": "<:1f4c6:>",
     }
 
     def __init__(self):
@@ -67,6 +67,9 @@ class BasePlantUMLCallbackHandler(BaseCallbackHandler):
     def _wrapper_note(self, note: str, line_max_limit: int = 1000) -> List[str]:
         new_note = note.strip()
         if len(new_note) > line_max_limit:
-            new_note = new_note[:line_max_limit] + f' ... (Omit {len(new_note) - line_max_limit} words)'
-        new_lines = [f'{line}{self.crlf}' for line in new_note.split('\n')]
+            new_note = (
+                new_note[:line_max_limit]
+                + f" ... (Omit {len(new_note) - line_max_limit} words)"
+            )
+        new_lines = [f"{line}{self.crlf}" for line in new_note.split("\n")]
         return new_lines

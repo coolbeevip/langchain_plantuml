@@ -22,7 +22,6 @@ from tests.activity_diagram_beta.scene_agent import SceneAgent
 
 
 class TestPlantUMLActivityDiagramCallbackHandler(TestCase):
-
     @classmethod
     def setUpClass(cls):
         langchain.debug = True
@@ -40,5 +39,5 @@ class TestPlantUMLActivityDiagramCallbackHandler(TestCase):
                     f.write(str(line) + "\n")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

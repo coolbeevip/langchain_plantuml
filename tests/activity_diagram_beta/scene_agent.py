@@ -24,7 +24,9 @@ from langchain.text_splitter import CharacterTextSplitter
 from langchain.tools import Tool
 from langchain.vectorstores import Chroma
 
-from langchain_plantuml.core.plantuml_callback_handler import BasePlantUMLCallbackHandler
+from langchain_plantuml.core.plantuml_callback_handler import (
+    BasePlantUMLCallbackHandler,
+)
 
 
 class SceneAgent:
@@ -33,13 +35,15 @@ class SceneAgent:
 
         """Create the state_of_union Vectorstore"""
         current_path = os.path.abspath(os.path.dirname(__file__))
-        doc_path = os.path.join(current_path, 'data/state_of_the_union.txt')
+        doc_path = os.path.join(current_path, "data/state_of_the_union.txt")
         loader = TextLoader(doc_path)
         documents = loader.load()
         text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
         texts = text_splitter.split_documents(documents)
         embeddings = OpenAIEmbeddings()
-        docsearch = Chroma.from_documents(texts, embeddings, collection_name="state-of-union")
+        docsearch = Chroma.from_documents(
+            texts, embeddings, collection_name="state-of-union"
+        )
         state_of_union = RetrievalQA.from_chain_type(
             llm=llm, chain_type="stuff", retriever=docsearch.as_retriever()
         )
@@ -64,7 +68,7 @@ class SceneAgent:
                 name="Ruff QA System",
                 func=ruff.run,
                 description="useful for when you need to answer questions about ruff (a python linter). Input should be a fully formed question.",
-            )
+            ),
         ]
         self.agent = initialize_agent(
             tools, llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION

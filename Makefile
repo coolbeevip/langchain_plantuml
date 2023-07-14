@@ -6,6 +6,7 @@ lint:
 	@pflake8 ./langchain_plantuml
 
 fmt:
+	@black ./langchain_plantuml
 	@isort ./langchain_plantuml
 
 release:

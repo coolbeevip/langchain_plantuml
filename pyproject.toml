@@ -18,7 +18,7 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "langchain-plantuml"
-version = "0.0.1"
+version = "0.0.2"
 description = "Subscribe to events using a callback and store them in PlantUML format. You can easily subscribe to events and keep them in a form that is easy to visualize and analyze."
 readme = "README.md"
 requires-python = ">=3.8"
@@ -53,3 +53,7 @@ per-file-ignores = [
     '__init__.py:F401',
 ]
 count = true
+
+urls.Homepage = "https://pypi.org/project/langchain-plantuml"
+urls.Source = "https://github.com/coolbeevip/langchain_plantuml"
+urls.Tracker = "https://github.com/coolbeevip/langchain_plantuml/issues"
