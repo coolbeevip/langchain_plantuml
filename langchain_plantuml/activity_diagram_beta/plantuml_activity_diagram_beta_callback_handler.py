@@ -33,17 +33,13 @@ class PlantUMLActivityDiagramCallbackHandler(BasePlantUMLCallbackHandler):
     _runs_metrics: dict = {}
 
     def __init__(
-        self,
-        color: Optional[str] = None,
-        simplify_prompt: bool = False,
-        skin_param: List[str] = DEFAULT_SKIN_PARAM,
+        self, color: Optional[str] = None, skin_param: List[str] = DEFAULT_SKIN_PARAM
     ) -> None:
         super().__init__()
         for param in skin_param:
             self.uml_content.append(param)
         self.uml_content.append("start")
         self.color = color
-        self.simplify_prompt = simplify_prompt
 
     def on_llm_start(
         self, serialized: Dict[str, Any], prompts: List[str], **kwargs: Any
@@ -160,12 +156,7 @@ class PlantUMLActivityDiagramCallbackHandler(BasePlantUMLCallbackHandler):
             self.on_tool_end.__name__, run_metric["name"]
         )
         self._append_uml_activity(activity_name)
-        # self._append_uml_line('note right')
-        # if observation_prefix is not None:
-        #     self._append_uml_multi_line(self._beautify_note(f"\n{observation_prefix}"))
-        # if llm_prefix is not None:
-        #     self._append_uml_multi_line(self._beautify_note(f"\n{llm_prefix}"))
-        # self._append_uml_line('end note')
+        self._append_uml_notes(align="right", notes=self._wrapper_note(output))
 
     def on_tool_error(
         self, error: Union[Exception, KeyboardInterrupt], **kwargs: Any
@@ -197,9 +188,6 @@ class PlantUMLActivityDiagramCallbackHandler(BasePlantUMLCallbackHandler):
         self, finish: AgentFinish, color: Optional[str] = None, **kwargs: Any
     ) -> None:
         run_metric = self._get_run_object(**kwargs)
-        # if kwargs['parent_run_id'] is not None:
-        #     # parent_run_id = str(kwargs['parent_run_id'])
-        #     # parent_run_name = self.runs[parent_run_id]
         activity_name = self._wrapper_activity_name(
             self.on_agent_finish.__name__, run_metric["name"]
         )

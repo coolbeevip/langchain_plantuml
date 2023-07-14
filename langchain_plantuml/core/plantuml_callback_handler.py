@@ -25,6 +25,7 @@ class BasePlantUMLCallbackHandler(BaseCallbackHandler):
     prompt_tokens: int = 0
     completion_tokens: int = 0
     crlf: str = "⏎"
+    note_max_length: int = 1000
     emojis = {
         "on_llm_start": "<:1f916:>",
         "on_llm_end": "<:1f916:>",
@@ -64,9 +65,9 @@ class BasePlantUMLCallbackHandler(BaseCallbackHandler):
         for line in lines:
             self.uml_content.append(line)
 
-    def _wrapper_note(self, note: str, line_max_limit: int = 1000) -> List[str]:
+    def _wrapper_note(self, note: str) -> List[str]:
         new_note = note.strip()
-        if len(new_note) > line_max_limit:
-            new_note = (f"new_note[:line_max_limit] ... (Omit {len(new_note) - line_max_limit} words)")
+        if len(new_note) > self.note_max_length:
+            new_note = f"new_note[:line_max_limit] ... (Omit {len(new_note) - self.note_max_length} words)"
         new_lines = [f"{line}{self.crlf}" for line in new_note.split("\n")]
         return new_lines
