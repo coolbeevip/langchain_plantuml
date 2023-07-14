@@ -1,4 +1,4 @@
-name: Release Python Package
+name: Release
 
 on:
   release:
