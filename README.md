@@ -60,10 +60,7 @@ llm_chain = LLMChain(
 llm_chain.predict(human_input="Hi there my friend")
 llm_chain.predict(human_input="Not too bad - how are you?")
 
-plantuml_content = callback_handler.export_uml_content()
-with open("example.puml", "w") as f:
-    for line in plantuml_content:
-        f.write(str(line) + "\n")
+callback_handler.save_uml_content("example.puml")
 ```
 
 You will get the following PlantUML activity diagram
