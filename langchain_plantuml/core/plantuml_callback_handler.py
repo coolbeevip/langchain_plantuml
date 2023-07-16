@@ -54,6 +54,10 @@ class BasePlantUMLCallbackHandler(BaseCallbackHandler):
     def export_uml_content(self) -> List[str]:
         pass
 
+    def save_uml_content(self, file_path: str):
+        with open(file_path, "w") as f:
+            f.writelines(self.export_uml_content())
+
     def _append_uml_line(self, line):
         self.uml_content.append(line)
 
