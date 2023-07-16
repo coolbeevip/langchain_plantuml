@@ -28,12 +28,14 @@ class TestPlantUMLActivityDiagramCallbackHandler(TestCase):
         cls._agent = SceneAgent()
 
     def test(self):
-        callback_handler = diagram.activity_diagram_callback()
+        activity_diagram_callback = diagram.activity_diagram_callback()
+        sequence_diagram_callback = diagram.sequence_diagram_callback()
         question = "What did biden say about ketanji brown jackson in the state of the union address?"
         try:
-            self._agent.run(question=question, callbacks=[callback_handler])
+            self._agent.run(question=question, callbacks=[activity_diagram_callback, sequence_diagram_callback])
         finally:
-            callback_handler.save_uml_content("scene_agent-activity-diagram.puml")
+            activity_diagram_callback.save_uml_content("scene_agent-activity-diagram.puml")
+            sequence_diagram_callback.save_uml_content("scene_agent-sequence-diagram.puml")
             # plantuml_content = callback_handler.export_uml_content()
             # with open("scene_agent-activity-diagram.puml", "w") as f:
             #     for line in plantuml_content:

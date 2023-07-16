@@ -16,7 +16,13 @@ from langchain.callbacks.base import BaseCallbackHandler
 
 from langchain_plantuml.activity_diagram_beta.plantuml_activity_diagram_beta_callback_handler import \
     PlantUMLActivityDiagramCallbackHandler
+from langchain_plantuml.activity_diagram_beta.plantuml_sequence_diagram_callback_handler import \
+    PlantUMLSequenceDiagramCallbackHandler
 
 
 def activity_diagram_callback() -> BaseCallbackHandler:
     return PlantUMLActivityDiagramCallbackHandler()
+
+
+def sequence_diagram_callback() -> BaseCallbackHandler:
+    return PlantUMLSequenceDiagramCallbackHandler()

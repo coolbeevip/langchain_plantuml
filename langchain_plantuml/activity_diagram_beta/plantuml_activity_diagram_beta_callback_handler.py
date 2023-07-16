@@ -225,6 +225,10 @@ class PlantUMLActivityDiagramCallbackHandler(BasePlantUMLCallbackHandler):
 
         return self._runs_metrics[run_id]
 
+    def _append_uml_activity(self, line):
+        self.uml_content.append(line)
+        self.step += 1
+
     def _append_uml_notes(self, align: str = "left", notes: List[str] = []):
         if len(notes) > 0:
             self._append_uml_line(f"note {align}")

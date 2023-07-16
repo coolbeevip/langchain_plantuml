@@ -12,18 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from abc import abstractmethod
+from abc import abstractmethod, ABC
 from typing import List
 
 from langchain.callbacks.base import BaseCallbackHandler
 
 
-class BasePlantUMLCallbackHandler(BaseCallbackHandler):
-    step: int = 0
-    uml_content: List[str] = []
-    total_tokens: int = 0
-    prompt_tokens: int = 0
-    completion_tokens: int = 0
+class BasePlantUMLCallbackHandler(BaseCallbackHandler, ABC):
     crlf: str = "⏎"
     note_max_length: int = 1000
     emojis = {
@@ -37,6 +32,11 @@ class BasePlantUMLCallbackHandler(BaseCallbackHandler):
     }
 
     def __init__(self):
+        self.step = 0
+        self.total_tokens = 0
+        self.prompt_tokens = 0
+        self.completion_tokens = 0
+        self.uml_content = []
         self.uml_content.append("@startuml")
         self.uml_content.append("skinparam dpi 300")
         self.uml_content.append("skinparam wrapWidth 500")
@@ -61,10 +61,6 @@ class BasePlantUMLCallbackHandler(BaseCallbackHandler):
 
     def _append_uml_line(self, line):
         self.uml_content.append(line)
-
-    def _append_uml_activity(self, line):
-        self.uml_content.append(line)
-        self.step += 1
 
     def _append_uml_multi_line(self, lines: List[str]):
         for line in lines:
