@@ -20,7 +20,12 @@ from langchain.schema import AgentAction, AgentFinish, LLMResult
 from langchain_plantuml.core.plantuml_callback_handler import \
     BasePlantUMLCallbackHandler
 
-DEFAULT_SKIN_PARAM = []
+DEFAULT_SKIN_PARAM = [
+    "skinparam maxMessageSize 50",
+    "skinparam roundcorner 20",
+    "skinparam sequenceArrowThickness 2",
+    "skinparam ParticipantPadding 20",
+]
 
 UML_PARTICIPANTS_FLAG = "-participants-"
 
@@ -65,7 +70,10 @@ class PlantUMLSequenceDiagramCallbackHandler(BasePlantUMLCallbackHandler):
         self.completion_tokens += response.llm_output["token_usage"].completion_tokens
         self.total_tokens += response.llm_output["token_usage"].total_tokens
         activity_name = self._wrapper_sequence_name(
-            self.on_llm_end.__name__, run_metric["name"], run_metric["parent_run_name"]
+            method_name=self.on_llm_end.__name__,
+            parent_run_name=run_metric["name"],
+            run_name=run_metric["parent_run_name"],
+            message=f"Time cost: {time_cost:.2f}s",
         )
         self._append_uml_sequence(
             line=activity_name, activate=False, participant=run_metric["name"]
@@ -330,7 +338,12 @@ class PlantUMLSequenceDiagramCallbackHandler(BasePlantUMLCallbackHandler):
             self._append_uml_line("end note")
 
     def _wrapper_sequence_name(
-        self, method_name: str, parent_run_name: str, run_name: str, color: str = None
+        self,
+        method_name: str,
+        parent_run_name: str,
+        run_name: str,
+        color: str = None,
+        message: str = "",
     ) -> str:
         if parent_run_name not in self.participants:
             self.participants[
@@ -344,4 +357,4 @@ class PlantUMLSequenceDiagramCallbackHandler(BasePlantUMLCallbackHandler):
             ] = f'participant "{self.emojis[method_name] if method_name in self.emojis else ""} {run_name}" as {run_name}'
             self.participant_name_indexes += [run_name]
 
-        return f'"{parent_run_name}" -{[color] if color is not None else ""}-> "{run_name}": {self.step}'
+        return f'"{parent_run_name}" -{[color] if color is not None else ""}-> "{run_name}": {self.step} {message}'

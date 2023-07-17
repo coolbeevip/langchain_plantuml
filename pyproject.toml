@@ -49,7 +49,7 @@ package = [
 ]
 
 [tool.flake8]
-max-line-length = 120
+max-line-length = 180
 ignore = ['E231', 'E241', 'W291', 'W293']
 per-file-ignores = [
     '__init__.py:F401',
