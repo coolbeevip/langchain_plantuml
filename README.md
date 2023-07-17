@@ -9,7 +9,13 @@
 
 Subscribe to events using a callback and store them in PlantUML format. You can easily subscribe to events and keep them in a form that is easy to visualize and analyze.
 
-![](screenshot/scene_agent.png)
+Activity Diagram 
+
+![](screenshot/activity-diagram.png)
+
+Sequence Diagram
+
+![](screenshot/sequence-diagram.png)
 
 ## Quick Start
 
@@ -28,7 +34,7 @@ Then:
 5. Save PlantUML content to a file
 6. Exporting PlantUML to PNG
 
-Running the minimal example.
+Running the minimal activity diagram example.
 
 ```python
 from langchain import OpenAI, LLMChain, PromptTemplate
@@ -60,18 +66,24 @@ llm_chain = LLMChain(
 llm_chain.predict(human_input="Hi there my friend")
 llm_chain.predict(human_input="Not too bad - how are you?")
 
-callback_handler.save_uml_content("example.puml")
+callback_handler.save_uml_content("example-activity.puml")
 ```
 
 You will get the following PlantUML activity diagram
 
-![](screenshot/example.png)
+![](screenshot/example-activity.png)
+
+Sequence Diagram
+
+```python
+callback_handler = diagram.sequence_diagram_callback()
+```
 
 ## Exporting PlantUML to PNG
 
 You can download [plantuml.1.2023.10.jar](https://github.com/plantuml/plantuml/releases/download/v1.2023.10/plantuml-1.2023.10.jar)
 
 ```shell
-java -DPLANTUML_LIMIT_SIZE=81920 -jar plantuml-1.2023.10.jar example.puml
+java -DPLANTUML_LIMIT_SIZE=81920 -jar plantuml-1.2023.10.jar example-activity.puml
 ```
 

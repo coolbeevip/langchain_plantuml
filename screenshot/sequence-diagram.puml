@@ -1,0 +1,272 @@
+@startuml
+skinparam dpi 300
+skinparam wrapWidth 500
+skinparam shadowing false
+skinparam noteFontName Arial
+skinparam noteFontSize 10
+skinparam noteBackgroundColor #ECECEC
+skinparam noteBorderColor #C0C0C0
+skinparam noteFontColor #333333
+skinparam noteBorderThickness 0
+skinparam noteShadowing false
+skinparam noteArrow none
+participant "<:1f3af:> AgentExecutor" as AgentExecutor
+participant "<:1f3af:> LLMChain" as LLMChain
+participant "<:1f916:> ChatOpenAI" as ChatOpenAI
+participant "<:1f528:> State_of_Union_QA_System" as State_of_Union_QA_System
+participant "<:1f3af:> RetrievalQA" as RetrievalQA
+participant "<:1f3af:> StuffDocumentsChain" as StuffDocumentsChain
+participant "<:1f528:> Ruff_QA_System" as Ruff_QA_System
+"AgentExecutor" --> "LLMChain": 0
+activate "LLMChain" #FEFECE
+note left #FEFECE
+{'input': 'What did biden say about ketanji brown jackson in the state of the union address?', 'agent_scratchpad': '', 'stop': ['\nObservation:', '\n\tObservation:']}⏎
+end note
+"LLMChain" --> "ChatOpenAI": 1
+activate "ChatOpenAI" #A9DCDF
+note left #A9DCDF
+Human: Answer the following questions as best you can. You have access to the following tools:⏎
+⏎
+State of Union QA System: useful for when you need to answer questions about the most recent state of the union address. Input should be a fully formed question.⏎
+Ruff QA System: useful for when you need to answer questions about ruff (a python linter). Input should be a fully formed question.⏎
+⏎
+Use the following format:⏎
+⏎
+Question: the input question you must answer⏎
+Thought: you should always think about what to do⏎
+Action: the action to take, should be one of [State of Union QA System, Ruff QA System]⏎
+Action Input: the input to the action⏎
+Observation: the result of the action⏎
+... (this Thought/Action/Action Input/Observation can repeat N times)⏎
+Thought: I now know the final answer⏎
+Final Answer: the final answer to the original input question⏎
+⏎
+Begin!⏎
+⏎
+Question: What did biden say about ketanji brown jackson in the state of the union address?⏎
+Thought:⏎
+end note
+"ChatOpenAI" --> "LLMChain": 2
+deactivate "ChatOpenAI"
+note right #A9DCDF
+I should use the State of Union QA System to find the answer to this question.⏎
+Action: State of Union QA System⏎
+Action Input: "What did biden say about ketanji brown jackson in the state of the union address?"⏎
+end note
+"LLMChain" --> "AgentExecutor": 3
+deactivate "LLMChain"
+note right #A9DCDF
+{'text': 'I should use the State of Union QA System to find the answer to this question.\nAction: State of Union QA System\nAction Input: "What did biden say about ketanji brown jackson in the state of the union address?"'}⏎
+end note
+"AgentExecutor" --> "State_of_Union_QA_System": 4
+activate "State_of_Union_QA_System" #orange
+note left #FEFECE
+What did biden say about ketanji brown jackson in the state of the union address?⏎
+end note
+"State_of_Union_QA_System" --> "RetrievalQA": 5
+activate "RetrievalQA" #FEFECE
+note left #FEFECE
+{'query': 'What did biden say about ketanji brown jackson in the state of the union address?'}⏎
+end note
+"RetrievalQA" --> "StuffDocumentsChain": 6
+activate "StuffDocumentsChain" #FEFECE
+note left #FEFECE
+{'input_documents': [Document(page_content='Madame Speaker, Vice President Biden, members of Congress, distinguished guests, and fellow Americans:\n\nOur Constitution declares that from time to time, the president shall give to Congress information about the state of our union. For 220 years, our leaders have fulfilled this duty. They have done so during periods of prosperity and tranquility. And they have done so in the midst of war and depression; at moments of great strife and great struggle.', metadata={'source': '/Users/zhanglei/Work/github/langchain_plantuml/tests/activity_diagram_beta/data/state_of_the_union.txt'}), Document(page_content="It is because of this spirit, this great decency and great strength that I have never been more hopeful about America's future than I am tonight. Despite our hardships, our union is strong. We do not give up. We do not quit. We do not allow fear or division to break our spirit. In this new decade, it's time the American people get a government  ... (Omit 2652 words)⏎
+end note
+"StuffDocumentsChain" --> "LLMChain": 7
+activate "LLMChain" #FEFECE
+note left #FEFECE
+{'question': 'What did biden say about ketanji brown jackson in the state of the union address?', 'context': 'Madame Speaker, Vice President Biden, members of Congress, distinguished guests, and fellow Americans:\n\nOur Constitution declares that from time to time, the president shall give to Congress information about the state of our union. For 220 years, our leaders have fulfilled this duty. They have done so during periods of prosperity and tranquility. And they have done so in the midst of war and depression; at moments of great strife and great struggle.\n\nIt is because of this spirit, this great decency and great strength that I have never been more hopeful about America\'s future than I am tonight. Despite our hardships, our union is strong. We do not give up. We do not quit. We do not allow fear or division to break our spirit. In this new decade, it\'s time the American people get a government that matches their decency, that embodies their strength.\n\nAnd tonight, I\'d lik ... (Omit 2052 words)⏎
+end note
+"LLMChain" --> "ChatOpenAI": 8
+activate "ChatOpenAI" #A9DCDF
+note left #A9DCDF
+System: Use the following pieces of context to answer the users question. ⏎
+If you don't know the answer, just say that you don't know, don't try to make up an answer.⏎
+----------------⏎
+Madame Speaker, Vice President Biden, members of Congress, distinguished guests, and fellow Americans:⏎
+⏎
+Our Constitution declares that from time to time, the president shall give to Congress information about the state of our union. For 220 years, our leaders have fulfilled this duty. They have done so during periods of prosperity and tranquility. And they have done so in the midst of war and depression; at moments of great strife and great struggle.⏎
+⏎
+It is because of this spirit, this great decency and great strength that I have never been more hopeful about America's future than I am tonight. Despite our hardships, our union is strong. We do not give up. We do not quit. We do not allow fear or division to break our spirit. In this new decade, it's time the American people get a government that matches t ... (Omit 2185 words)⏎
+end note
+"ChatOpenAI" --> "LLMChain": 9
+deactivate "ChatOpenAI"
+note right #A9DCDF
+There is no mention of Ketanji Brown Jackson in the provided context.⏎
+end note
+"LLMChain" --> "StuffDocumentsChain": 10
+deactivate "LLMChain"
+note right #A9DCDF
+{'text': 'There is no mention of Ketanji Brown Jackson in the provided context.'}⏎
+end note
+"StuffDocumentsChain" --> "RetrievalQA": 11
+deactivate "StuffDocumentsChain"
+note right #A9DCDF
+{'output_text': 'There is no mention of Ketanji Brown Jackson in the provided context.'}⏎
+end note
+"RetrievalQA" --> "State_of_Union_QA_System": 12
+deactivate "RetrievalQA"
+note right #A9DCDF
+{'result': 'There is no mention of Ketanji Brown Jackson in the provided context.'}⏎
+end note
+"State_of_Union_QA_System" --> "AgentExecutor": 13
+deactivate "State_of_Union_QA_System"
+note right #A9DCDF
+There is no mention of Ketanji Brown Jackson in the provided context.⏎
+end note
+"AgentExecutor" --> "LLMChain": 14
+activate "LLMChain" #FEFECE
+note left #FEFECE
+{'input': 'What did biden say about ketanji brown jackson in the state of the union address?', 'agent_scratchpad': 'I should use the State of Union QA System to find the answer to this question.\nAction: State of Union QA System\nAction Input: "What did biden say about ketanji brown jackson in the state of the union address?"\nObservation: There is no mention of Ketanji Brown Jackson in the provided context.\nThought:', 'stop': ['\nObservation:', '\n\tObservation:']}⏎
+end note
+"LLMChain" --> "ChatOpenAI": 15
+activate "ChatOpenAI" #A9DCDF
+note left #A9DCDF
+Human: Answer the following questions as best you can. You have access to the following tools:⏎
+⏎
+State of Union QA System: useful for when you need to answer questions about the most recent state of the union address. Input should be a fully formed question.⏎
+Ruff QA System: useful for when you need to answer questions about ruff (a python linter). Input should be a fully formed question.⏎
+⏎
+Use the following format:⏎
+⏎
+Question: the input question you must answer⏎
+Thought: you should always think about what to do⏎
+Action: the action to take, should be one of [State of Union QA System, Ruff QA System]⏎
+Action Input: the input to the action⏎
+Observation: the result of the action⏎
+... (this Thought/Action/Action Input/Observation can repeat N times)⏎
+Thought: I now know the final answer⏎
+Final Answer: the final answer to the original input question⏎
+⏎
+Begin!⏎
+⏎
+Question: What did biden say about ketanji brown jackson in the state of the union address?⏎
+Thought:I should use the State of Union QA System to  ... (Omit 256 words)⏎
+end note
+"ChatOpenAI" --> "LLMChain": 16
+deactivate "ChatOpenAI"
+note right #A9DCDF
+I should try another source to find the answer to this question.⏎
+Action: Ruff QA System⏎
+Action Input: "What did biden say about ketanji brown jackson in the state of the union address?"⏎
+end note
+"LLMChain" --> "AgentExecutor": 17
+deactivate "LLMChain"
+note right #A9DCDF
+{'text': 'I should try another source to find the answer to this question.\nAction: Ruff QA System\nAction Input: "What did biden say about ketanji brown jackson in the state of the union address?"'}⏎
+end note
+"AgentExecutor" --> "Ruff_QA_System": 18
+activate "Ruff_QA_System" #orange
+note left #FEFECE
+What did biden say about ketanji brown jackson in the state of the union address?⏎
+end note
+"Ruff_QA_System" --> "RetrievalQA": 19
+activate "RetrievalQA" #FEFECE
+note left #FEFECE
+{'query': 'What did biden say about ketanji brown jackson in the state of the union address?'}⏎
+end note
+"RetrievalQA" --> "StuffDocumentsChain": 20
+activate "StuffDocumentsChain" #FEFECE
+note left #FEFECE
+{'input_documents': [Document(page_content="Ruff tried to fix something — but it broke my code?\n\n\nHow can I disable Ruff's color output?\n\n\nContributing", metadata={'source': 'https://beta.ruff.rs/docs/faq/', 'title': 'FAQ - Ruff', 'language': 'en'}), Document(page_content="Note that, in some cases, Ruff uses different rule codes and prefixes than would be found in the\noriginating Flake8 plugins. For example, Ruff uses TID252 to represent the I252 rule from\nflake8-tidy-imports. This helps minimize conflicts across plugins and allows any individual plugin\nto be toggled on or off with a single (e.g.) --select TID, as opposed to --select I2 (to avoid\nconflicts with the isort rules, like I001).\nBeyond the rule set, Ruff's primary limitation vis-à-vis Flake8 is that it does not support custom\nlint rules. (Instead, popular Flake8 plugins are re-implemented in Rust as part of Ruff itself.)\nThere are a few other minor incompatibilities between Ruff and the originating Flake8 plugin ... (Omit 2123 words)⏎
+end note
+"StuffDocumentsChain" --> "LLMChain": 21
+activate "LLMChain" #FEFECE
+note left #FEFECE
+{'question': 'What did biden say about ketanji brown jackson in the state of the union address?', 'context': 'Ruff tried to fix something — but it broke my code?\n\n\nHow can I disable Ruff\'s color output?\n\n\nContributing\n\nNote that, in some cases, Ruff uses different rule codes and prefixes than would be found in the\noriginating Flake8 plugins. For example, Ruff uses TID252 to represent the I252 rule from\nflake8-tidy-imports. This helps minimize conflicts across plugins and allows any individual plugin\nto be toggled on or off with a single (e.g.) --select TID, as opposed to --select I2 (to avoid\nconflicts with the isort rules, like I001).\nBeyond the rule set, Ruff\'s primary limitation vis-à-vis Flake8 is that it does not support custom\nlint rules. (Instead, popular Flake8 plugins are re-implemented in Rust as part of Ruff itself.)\nThere are a few other minor incompatibilities between Ruff and the originating Flake8 plugins:\n\nRuff doesn\'t implement all the "opinionated" ... (Omit 1639 words)⏎
+end note
+"LLMChain" --> "ChatOpenAI": 22
+activate "ChatOpenAI" #A9DCDF
+note left #A9DCDF
+System: Use the following pieces of context to answer the users question. ⏎
+If you don't know the answer, just say that you don't know, don't try to make up an answer.⏎
+----------------⏎
+Ruff tried to fix something — but it broke my code?⏎
+⏎
+⏎
+How can I disable Ruff's color output?⏎
+⏎
+⏎
+Contributing⏎
+⏎
+Note that, in some cases, Ruff uses different rule codes and prefixes than would be found in the⏎
+originating Flake8 plugins. For example, Ruff uses TID252 to represent the I252 rule from⏎
+flake8-tidy-imports. This helps minimize conflicts across plugins and allows any individual plugin⏎
+to be toggled on or off with a single (e.g.) --select TID, as opposed to --select I2 (to avoid⏎
+conflicts with the isort rules, like I001).⏎
+Beyond the rule set, Ruff's primary limitation vis-à-vis Flake8 is that it does not support custom⏎
+lint rules. (Instead, popular Flake8 plugins are re-implemented in Rust as part of Ruff itself.)⏎
+There are a few other minor incompatibilities between Ruff and the originating Flake8  ... (Omit 1755 words)⏎
+end note
+"ChatOpenAI" --> "LLMChain": 23
+deactivate "ChatOpenAI"
+note right #A9DCDF
+I'm sorry, but I don't have access to real-time information or the ability to browse the internet. Therefore, I cannot provide you with the specific details of what President Biden may have said about Ketanji Brown Jackson in the State of the Union address. I would recommend checking reliable news sources or official transcripts for accurate information on the topic.⏎
+end note
+"LLMChain" --> "StuffDocumentsChain": 24
+deactivate "LLMChain"
+note right #A9DCDF
+{'text': "I'm sorry, but I don't have access to real-time information or the ability to browse the internet. Therefore, I cannot provide you with the specific details of what President Biden may have said about Ketanji Brown Jackson in the State of the Union address. I would recommend checking reliable news sources or official transcripts for accurate information on the topic."}⏎
+end note
+"StuffDocumentsChain" --> "RetrievalQA": 25
+deactivate "StuffDocumentsChain"
+note right #A9DCDF
+{'output_text': "I'm sorry, but I don't have access to real-time information or the ability to browse the internet. Therefore, I cannot provide you with the specific details of what President Biden may have said about Ketanji Brown Jackson in the State of the Union address. I would recommend checking reliable news sources or official transcripts for accurate information on the topic."}⏎
+end note
+"RetrievalQA" --> "Ruff_QA_System": 26
+deactivate "RetrievalQA"
+note right #A9DCDF
+{'result': "I'm sorry, but I don't have access to real-time information or the ability to browse the internet. Therefore, I cannot provide you with the specific details of what President Biden may have said about Ketanji Brown Jackson in the State of the Union address. I would recommend checking reliable news sources or official transcripts for accurate information on the topic."}⏎
+end note
+"Ruff_QA_System" --> "AgentExecutor": 27
+deactivate "Ruff_QA_System"
+note right #A9DCDF
+I'm sorry, but I don't have access to real-time information or the ability to browse the internet. Therefore, I cannot provide you with the specific details of what President Biden may have said about Ketanji Brown Jackson in the State of the Union address. I would recommend checking reliable news sources or official transcripts for accurate information on the topic.⏎
+end note
+"AgentExecutor" --> "LLMChain": 28
+activate "LLMChain" #FEFECE
+note left #FEFECE
+{'input': 'What did biden say about ketanji brown jackson in the state of the union address?', 'agent_scratchpad': 'I should use the State of Union QA System to find the answer to this question.\nAction: State of Union QA System\nAction Input: "What did biden say about ketanji brown jackson in the state of the union address?"\nObservation: There is no mention of Ketanji Brown Jackson in the provided context.\nThought:I should try another source to find the answer to this question.\nAction: Ruff QA System\nAction Input: "What did biden say about ketanji brown jackson in the state of the union address?"\nObservation: I\'m sorry, but I don\'t have access to real-time information or the ability to browse the internet. Therefore, I cannot provide you with the specific details of what President Biden may have said about Ketanji Brown Jackson in the State of the Union address. I would recommend checking reliable news sources or official transcripts for accurate information on the topic.\nThou ... (Omit 54 words)⏎
+end note
+"LLMChain" --> "ChatOpenAI": 29
+activate "ChatOpenAI" #A9DCDF
+note left #A9DCDF
+Human: Answer the following questions as best you can. You have access to the following tools:⏎
+⏎
+State of Union QA System: useful for when you need to answer questions about the most recent state of the union address. Input should be a fully formed question.⏎
+Ruff QA System: useful for when you need to answer questions about ruff (a python linter). Input should be a fully formed question.⏎
+⏎
+Use the following format:⏎
+⏎
+Question: the input question you must answer⏎
+Thought: you should always think about what to do⏎
+Action: the action to take, should be one of [State of Union QA System, Ruff QA System]⏎
+Action Input: the input to the action⏎
+Observation: the result of the action⏎
+... (this Thought/Action/Action Input/Observation can repeat N times)⏎
+Thought: I now know the final answer⏎
+Final Answer: the final answer to the original input question⏎
+⏎
+Begin!⏎
+⏎
+Question: What did biden say about ketanji brown jackson in the state of the union address?⏎
+Thought:I should use the State of Union QA System to  ... (Omit 833 words)⏎
+end note
+"ChatOpenAI" --> "LLMChain": 30
+deactivate "ChatOpenAI"
+note right #A9DCDF
+I don't have access to the specific information about what President Biden said about Ketanji Brown Jackson in the State of the Union address. The best course of action would be to check reliable news sources or official transcripts for accurate information on the topic.⏎
+Final Answer: I don't have the specific information about what President Biden said about Ketanji Brown Jackson in the State of the Union address.⏎
+end note
+"LLMChain" --> "AgentExecutor": 31
+deactivate "LLMChain"
+note right #A9DCDF
+{'text': "I don't have access to the specific information about what President Biden said about Ketanji Brown Jackson in the State of the Union address. The best course of action would be to check reliable news sources or official transcripts for accurate information on the topic.\nFinal Answer: I don't have the specific information about what President Biden said about Ketanji Brown Jackson in the State of the Union address."}⏎
+end note
+note left
+* prompt_tokens: 2257 
+* completion_tokens: 257 
+* total_tokens: 2514
+end note
+@enduml

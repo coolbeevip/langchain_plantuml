@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from abc import abstractmethod, ABC
+from abc import ABC, abstractmethod
 from typing import List
 
 from langchain.callbacks.base import BaseCallbackHandler
@@ -69,6 +69,6 @@ class BasePlantUMLCallbackHandler(BaseCallbackHandler, ABC):
     def _wrapper_note(self, note: str) -> List[str]:
         new_note = note.strip()
         if len(new_note) > self.note_max_length:
-            new_note = f"new_note[:line_max_limit] ... (Omit {len(new_note) - self.note_max_length} words)"
+            new_note = f"{new_note[:self.note_max_length]} ... (Omit {len(new_note) - self.note_max_length} words)"
         new_lines = [f"{line}{self.crlf}" for line in new_note.split("\n")]
         return new_lines

@@ -35,11 +35,7 @@ class TestPlantUMLActivityDiagramCallbackHandler(TestCase):
             self._agent.run(question=question, callbacks=[activity_diagram_callback, sequence_diagram_callback])
         finally:
             activity_diagram_callback.save_uml_content("scene_agent-activity-diagram.puml")
-            sequence_diagram_callback.save_uml_content("scene_agent-sequence-diagram.puml")
-            # plantuml_content = callback_handler.export_uml_content()
-            # with open("scene_agent-activity-diagram.puml", "w") as f:
-            #     for line in plantuml_content:
-            #         f.write(str(line) + "\n")
+            sequence_diagram_callback.save_uml_content("sequence-diagram.puml")
 
 
 if __name__ == "__main__":
