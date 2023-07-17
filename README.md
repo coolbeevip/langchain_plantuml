@@ -7,7 +7,7 @@
 [![](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![](https://img.shields.io/pypi/dm/langchain-plantuml)](https://pypi.org/project/langchain-plantuml/)
 
-Subscribe to events using a callback and store them in PlantUML format. You can easily subscribe to events and keep them in a form that is easy to visualize and analyze.
+Subscribe to events using a callback and store them in PlantUML format **Activity Diagram** and **Sequence Diagram**. You can easily subscribe to events and keep them in a form that is easy to visualize and analyze.
 
 Activity Diagram 
 
