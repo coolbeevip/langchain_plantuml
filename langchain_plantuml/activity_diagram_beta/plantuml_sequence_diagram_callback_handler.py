@@ -34,7 +34,10 @@ class PlantUMLSequenceDiagramCallbackHandler(BasePlantUMLCallbackHandler):
     _runs_metrics: dict = {}
 
     def __init__(
-        self, color: Optional[str] = None, skin_param: List[str] = DEFAULT_SKIN_PARAM
+        self,
+        color: Optional[str] = None,
+        skin_param: List[str] = DEFAULT_SKIN_PARAM,
+        note_max_length: int = 1000,
     ) -> None:
         super().__init__()
         for param in skin_param:
@@ -43,6 +46,7 @@ class PlantUMLSequenceDiagramCallbackHandler(BasePlantUMLCallbackHandler):
         self.participants = {}
         self.participant_name_indexes = []
         self.color = color
+        self.note_max_length = note_max_length
 
     def on_llm_start(
         self, serialized: Dict[str, Any], prompts: List[str], **kwargs: Any

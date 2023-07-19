@@ -20,9 +20,9 @@ from langchain_plantuml.activity_diagram_beta.plantuml_sequence_diagram_callback
     PlantUMLSequenceDiagramCallbackHandler
 
 
-def activity_diagram_callback() -> BaseCallbackHandler:
-    return PlantUMLActivityDiagramCallbackHandler()
+def activity_diagram_callback(note_max_length: int = 1000) -> BaseCallbackHandler:
+    return PlantUMLActivityDiagramCallbackHandler(note_max_length=note_max_length)
 
 
-def sequence_diagram_callback() -> BaseCallbackHandler:
-    return PlantUMLSequenceDiagramCallbackHandler()
+def sequence_diagram_callback(note_max_length: int = 1000) -> BaseCallbackHandler:
+    return PlantUMLSequenceDiagramCallbackHandler(note_max_length=note_max_length)

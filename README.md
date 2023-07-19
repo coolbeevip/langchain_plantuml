@@ -79,6 +79,12 @@ Sequence Diagram
 callback_handler = diagram.sequence_diagram_callback()
 ```
 
+Support Custom Note Max Length(default 1000)
+
+```python
+callback_handler = diagram.activity_diagram_callback(note_max_length=2000)
+```
+
 ## Exporting PlantUML to PNG
 
 You can download [plantuml.1.2023.10.jar](https://github.com/plantuml/plantuml/releases/download/v1.2023.10/plantuml-1.2023.10.jar)
