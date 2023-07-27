@@ -14,15 +14,23 @@
 
 from langchain.callbacks.base import BaseCallbackHandler
 
-from langchain_plantuml.activity_diagram_beta.plantuml_activity_diagram_beta_callback_handler import \
+from langchain_plantuml.plantuml.plantuml_activity_diagram_beta_callback_handler import \
     PlantUMLActivityDiagramCallbackHandler
-from langchain_plantuml.activity_diagram_beta.plantuml_sequence_diagram_callback_handler import \
+from langchain_plantuml.plantuml.plantuml_sequence_diagram_callback_handler import \
     PlantUMLSequenceDiagramCallbackHandler
 
 
-def activity_diagram_callback(note_max_length: int = 1000) -> BaseCallbackHandler:
-    return PlantUMLActivityDiagramCallbackHandler(note_max_length=note_max_length)
+def activity_diagram_callback(
+    note_max_length: int = 1000, note_wrap_width: int = 500
+) -> BaseCallbackHandler:
+    return PlantUMLActivityDiagramCallbackHandler(
+        note_max_length=note_max_length, note_wrap_width=note_wrap_width
+    )
 
 
-def sequence_diagram_callback(note_max_length: int = 1000) -> BaseCallbackHandler:
-    return PlantUMLSequenceDiagramCallbackHandler(note_max_length=note_max_length)
+def sequence_diagram_callback(
+    note_max_length: int = 1000, note_wrap_width: int = 500
+) -> BaseCallbackHandler:
+    return PlantUMLSequenceDiagramCallbackHandler(
+        note_max_length=note_max_length, note_wrap_width=note_wrap_width
+    )

@@ -21,6 +21,7 @@ from langchain.callbacks.base import BaseCallbackHandler
 class BasePlantUMLCallbackHandler(BaseCallbackHandler, ABC):
     crlf: str = "⏎"
     note_max_length: int = 1000
+    note_wrap_width: int = 500
     emojis = {
         "on_llm_start": "<:1f916:>",
         "on_llm_end": "<:1f916:>",
@@ -31,7 +32,9 @@ class BasePlantUMLCallbackHandler(BaseCallbackHandler, ABC):
         "on_text": "<:1f4c6:>",
     }
 
-    def __init__(self):
+    def __init__(self, note_max_length: int = 1000, note_wrap_width: int = 500):
+        self.note_wrap_width = note_wrap_width
+        self.note_max_length = note_max_length
         self.step = 0
         self.total_tokens = 0
         self.prompt_tokens = 0
@@ -39,7 +42,7 @@ class BasePlantUMLCallbackHandler(BaseCallbackHandler, ABC):
         self.uml_content = []
         self.uml_content.append("@startuml")
         self.uml_content.append("skinparam dpi 300")
-        self.uml_content.append("skinparam wrapWidth 500")
+        self.uml_content.append(f"skinparam wrapWidth {self.note_wrap_width}")
         self.uml_content.append("skinparam shadowing false")
         self.uml_content.append("skinparam noteFontName Arial")
         self.uml_content.append("skinparam noteFontSize 10")
@@ -70,5 +73,19 @@ class BasePlantUMLCallbackHandler(BaseCallbackHandler, ABC):
         new_note = note.strip()
         if len(new_note) > self.note_max_length:
             new_note = f"{new_note[:self.note_max_length]} ... (Omit {len(new_note) - self.note_max_length} words)"
-        new_lines = [f"{line}{self.crlf}" for line in new_note.split("\n")]
-        return new_lines
+
+        new_notes = [f"{line}{self.crlf}" for line in new_note.split("\n")]
+
+        wrap_notes = [
+            word
+            for phrase in new_notes
+            for word in (
+                [
+                    phrase[i : i + self.note_wrap_width]
+                    for i in range(0, len(phrase), self.note_wrap_width)
+                ]
+                if len(phrase) > self.note_wrap_width
+                else [phrase]
+            )
+        ]
+        return wrap_notes

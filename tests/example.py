@@ -1,7 +1,7 @@
 from langchain import OpenAI, LLMChain, PromptTemplate
 from langchain.memory import ConversationBufferMemory
 
-from langchain_plantuml import diagram
+from langchain_plantuml import plantuml
 
 template = """You are a chatbot having a conversation with a human.
 
@@ -14,7 +14,7 @@ prompt = PromptTemplate(
 )
 memory = ConversationBufferMemory(memory_key="chat_history")
 
-callback_handler = diagram.activity_diagram_callback()
+callback_handler = plantuml.activity_diagram_callback()
 
 llm_chain = LLMChain(
     llm=OpenAI(),
@@ -28,6 +28,6 @@ llm_chain.predict(human_input="Hi there my friend")
 llm_chain.predict(human_input="Not too bad - how are you?")
 
 plantuml_content = callback_handler.export_uml_content()
-with open("example-activity-diagram.puml", "w") as f:
+with open("example-activity-plantuml.puml", "w") as f:
     for line in plantuml_content:
         f.write(str(line) + "\n")

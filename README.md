@@ -7,7 +7,8 @@
 [![](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![](https://img.shields.io/pypi/dm/langchain-plantuml)](https://pypi.org/project/langchain-plantuml/)
 
-Subscribe to events using a callback and store them in PlantUML format **Activity Diagram** and **Sequence Diagram**. You can easily subscribe to events and keep them in a form that is easy to visualize and analyze.
+Subscribe to events using a callback and store them in PlantUML format to easily visualize LangChain workflow in Activity Diagram and Sequence Diagram. 
+You can easily subscribe to events and keep them in a form that is easy to visualize and analyze using PlantUML.
 
 Activity Diagram 
 
@@ -40,7 +41,7 @@ Running the minimal activity diagram example.
 from langchain import OpenAI, LLMChain, PromptTemplate
 from langchain.memory import ConversationBufferMemory
 
-from langchain_plantuml import diagram
+from langchain_plantuml import plantuml
 
 template = """You are a chatbot having a conversation with a human.
 
@@ -53,7 +54,7 @@ prompt = PromptTemplate(
 )
 memory = ConversationBufferMemory(memory_key="chat_history")
 
-callback_handler = diagram.activity_diagram_callback()
+callback_handler = plantuml.activity_diagram_callback()
 
 llm_chain = LLMChain(
     llm=OpenAI(),
@@ -79,10 +80,16 @@ Sequence Diagram
 callback_handler = diagram.sequence_diagram_callback()
 ```
 
-Support Custom Note Max Length(default 1000)
+Custom note max Length(default 1000)
 
 ```python
 callback_handler = diagram.activity_diagram_callback(note_max_length=2000)
+```
+
+Custom note wrap width(default 500)
+
+```python
+callback_handler = diagram.activity_diagram_callback(note_wrap_width=500)
 ```
 
 ## Exporting PlantUML to PNG

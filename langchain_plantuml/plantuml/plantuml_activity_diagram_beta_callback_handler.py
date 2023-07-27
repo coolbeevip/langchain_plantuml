@@ -37,13 +37,15 @@ class PlantUMLActivityDiagramCallbackHandler(BasePlantUMLCallbackHandler):
         color: Optional[str] = None,
         skin_param: List[str] = DEFAULT_SKIN_PARAM,
         note_max_length: int = 1000,
+        note_wrap_width: int = 500,
     ) -> None:
-        super().__init__()
+        super().__init__(
+            note_max_length=note_max_length, note_wrap_width=note_wrap_width
+        )
         for param in skin_param:
             self.uml_content.append(param)
         self.uml_content.append("start")
         self.color = color
-        self.note_max_length = note_max_length
 
     def on_llm_start(
         self, serialized: Dict[str, Any], prompts: List[str], **kwargs: Any
