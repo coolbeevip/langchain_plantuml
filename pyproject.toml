@@ -18,7 +18,7 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "langchain-plantuml"
-version = "0.0.7"
+version = "0.0.8"
 description = "Subscribe to events using a callback and store them in PlantUML format. You can easily subscribe to events and keep them in a form that is easy to visualize and analyze."
 authors = [{ name = "Lei Zhang", email = "zhanglei@apache.org" }]
 license = {file = "LICENSE"}
