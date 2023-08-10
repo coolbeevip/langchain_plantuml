@@ -24,18 +24,20 @@ from langchain.text_splitter import CharacterTextSplitter
 from langchain.tools import Tool
 from langchain.vectorstores import Chroma
 
+from langchain_plantuml import diagram
 from langchain_plantuml.core.plantuml_callback_handler import (
     BasePlantUMLCallbackHandler,
 )
 
 
-class SceneAgent:
+# Define an Agent
+class MyAgent:
     def __init__(self):
         llm = ChatOpenAI(model_name="gpt-3.5-turbo-0613")
 
         """Create the state_of_union Vectorstore"""
         current_path = os.path.abspath(os.path.dirname(__file__))
-        doc_path = os.path.join(current_path, "data/state_of_the_union.txt")
+        doc_path = os.path.join(current_path, "state_of_the_union.txt")
         loader = TextLoader(doc_path)
         documents = loader.load()
         text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
@@ -76,3 +78,15 @@ class SceneAgent:
 
     def run(self, question: str, callbacks: List[BasePlantUMLCallbackHandler]):
         self.agent.run(question, callbacks=callbacks)
+
+
+# Run the Agent
+agent = MyAgent()
+activity_diagram = diagram.activity_diagram_callback(note_max_length=2000)
+sequence_diagram = diagram.sequence_diagram_callback(note_max_length=2000)
+question = "What did biden say about ketanji brown jackson in the state of the union address?"
+try:
+    agent.run(question=question, callbacks=[activity_diagram, sequence_diagram])
+finally:
+    activity_diagram.save_uml_content("example_2_activity-plantuml.puml")
+    sequence_diagram.save_uml_content("example_2_sequence-plantuml.puml")

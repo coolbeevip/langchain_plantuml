@@ -310,6 +310,9 @@ class PlantUMLSequenceDiagramCallbackHandler(BasePlantUMLCallbackHandler):
             self._runs_metrics[run_id]["parent_run_name"] = self._runs_metrics[
                 parent_run_id
             ]["name"]
+        else:
+            self._runs_metrics[run_id]["parent_run_id"] = None
+            self._runs_metrics[run_id]["parent_run_name"] = None
 
         if serialized is not None:
             run_name = (

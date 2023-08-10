@@ -41,7 +41,7 @@ Running the minimal activity diagram example.
 from langchain import OpenAI, LLMChain, PromptTemplate
 from langchain.memory import ConversationBufferMemory
 
-from langchain_plantuml import plantuml
+from langchain_plantuml import diagram
 
 template = """You are a chatbot having a conversation with a human.
 
@@ -54,20 +54,22 @@ prompt = PromptTemplate(
 )
 memory = ConversationBufferMemory(memory_key="chat_history")
 
-callback_handler = plantuml.activity_diagram_callback()
+activity_diagram = diagram.activity_diagram_callback(note_max_length=2000)
+sequence_diagram = diagram.sequence_diagram_callback(note_max_length=2000)
 
 llm_chain = LLMChain(
     llm=OpenAI(),
     prompt=prompt,
     verbose=True,
     memory=memory,
-    callbacks=[callback_handler]
+    callbacks=[activity_diagram, sequence_diagram]
 )
 
-llm_chain.predict(human_input="Hi there my friend")
-llm_chain.predict(human_input="Not too bad - how are you?")
-
-callback_handler.save_uml_content("example-activity.puml")
+try:
+    llm_chain.predict(human_input="What did biden say about ketanji brown jackson in the state of the union address?")
+finally:
+    activity_diagram.save_uml_content("example_1_activity-plantuml.puml")
+    sequence_diagram.save_uml_content("example_1_sequence-plantuml.puml")
 ```
 
 You will get the following PlantUML activity diagram

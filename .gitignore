@@ -44,7 +44,7 @@ nosetests.xml
 coverage.xml
 *,cover
 .hypothesis/
-tests/debug
+examples/debug
 
 # Translations
 *.mo
@@ -96,4 +96,4 @@ ENV/
 
 # Project
 .chroma
-tests/**/*.puml
+**/*.puml
