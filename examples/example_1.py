@@ -17,7 +17,9 @@ from langchain import OpenAI, LLMChain, PromptTemplate
 from langchain.memory import ConversationBufferMemory
 
 from langchain_plantuml import diagram
+from dotenv import load_dotenv
 
+load_dotenv()
 template = """You are a chatbot having a conversation with a human.
 
 {chat_history}

@@ -25,7 +25,7 @@ license = {file = "LICENSE"}
 readme = "README.md"
 requires-python = ">=3.8"
 dependencies = [
-    "langchain>=0.0.228"
+    "langchain>=0.0.310"
 ]
 
 [tool.flit.module]
@@ -33,16 +33,16 @@ name = "langchain_plantuml"
 
 [project.optional-dependencies]
 lint = [
-    "flake8==5.0.4",
-    "pyproject-flake8==5.0.4",
+    "flake8==6.1.0",
+    "pyproject-flake8==6.1.0",
     "isort>=5,<6",
     "black>=23,<24"
 ]
 test = [
-    "openai==0.27.8",
-    "chromadb==0.3.26",
-    "tiktoken==0.4.0",
-    "coverage==7.2.7"
+    "openai==0.28.1",
+    "chromadb==0.4.13",
+    "tiktoken==0.5.1",
+    "coverage==7.3.2"
 ]
 package = [
     "flit==3.9.0"

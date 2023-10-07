@@ -28,6 +28,9 @@ from langchain_plantuml import diagram
 from langchain_plantuml.core.plantuml_callback_handler import (
     BasePlantUMLCallbackHandler,
 )
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 # Define an Agent
