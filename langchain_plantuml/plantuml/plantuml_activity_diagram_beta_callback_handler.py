@@ -178,7 +178,7 @@ class PlantUMLActivityDiagramCallbackHandler(BasePlantUMLCallbackHandler):
         **kwargs: Any,
     ) -> None:
         run_metric = self._get_run_object(**kwargs)
-        if type(text) == list:
+        if isinstance(text, list):
             activity_name = self._wrapper_activity_name(
                 self.on_text.__name__, run_metric["name"]
             )

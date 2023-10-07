@@ -249,7 +249,7 @@ class PlantUMLSequenceDiagramCallbackHandler(BasePlantUMLCallbackHandler):
         **kwargs: Any,
     ) -> None:
         run_metric = self._get_run_object(**kwargs)
-        if type(text) == list:
+        if isinstance(text, list):
             activity_name = self._wrapper_sequence_name(
                 self.on_text.__name__, run_metric["parent_run_name"], run_metric["name"]
             )
