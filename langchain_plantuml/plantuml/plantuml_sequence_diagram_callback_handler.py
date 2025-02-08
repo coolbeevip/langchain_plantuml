@@ -366,4 +366,4 @@ class PlantUMLSequenceDiagramCallbackHandler(BasePlantUMLCallbackHandler):
             ] = f'participant "{self.emojis[method_name] if method_name in self.emojis else ""} {run_name}" as {run_name}'
             self.participant_name_indexes += [run_name]
 
-        return f'"{parent_run_name}" -{[color] if color is not None else ""}-> "{run_name}": {self.step} {message}'
+        return f'"{parent_run_name}" -[{color if color is not None else ""}]-> "{run_name}": {self.step} {message}'
